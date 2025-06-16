@@ -4,59 +4,72 @@ public class WolfAttack : MonoBehaviour
 {
     [Header("Attack Settings")]
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private int damage = 15;
+    [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private LayerMask playerLayer;
-    [SerializeField] private float pushForce;
+    [SerializeField] private float attackDelay = 0.3f;
+    [SerializeField] private float pushForce = 5f; // Сила отталкивания
 
     [Header("Debug")]
-    [SerializeField] private bool drawGizmos = true;
-    [SerializeField] private Color gizmoColor = Color.red;
+    [SerializeField] private bool showGizmos = true;
 
     private float lastAttackTime;
-    private bool canAttack = true;
+    private bool isAttacking;
+
+    public bool CanAttack()
+    {
+        return Time.time >= lastAttackTime + attackCooldown;
+    }
+
+    public bool IsPlayerInRange()
+    {
+        return Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
+    }
 
     public void StartAttack()
     {
-        if (!canAttack || Time.time - lastAttackTime < attackCooldown) return;
+        if (!CanAttack() || isAttacking) return;
 
-        PerformAttack();
+        isAttacking = true;
         lastAttackTime = Time.time;
-        canAttack = false;
-        Invoke(nameof(ResetAttack), attackCooldown);
+        Invoke(nameof(PerformAttack), attackDelay);
     }
 
     private void PerformAttack()
     {
-        Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, playerLayer);
-
-        foreach (Collider2D player in hitPlayers)
+        if (IsPlayerInRange())
         {
-            Vector2 direction = (player.transform.position - transform.position).normalized;
-            PlayerHealth health = player.GetComponent<PlayerHealth>();
-            if (health != null)
+            Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
+            if (player != null)
             {
-                health.TakeDamageWithPush(damage, direction, pushForce);
-                Debug.Log($"Wolf attacked {player.name} for {damage} damage!");
+                Vector2 pushDirection = (player.transform.position - transform.position).normalized;
+                player.GetComponent<PlayerHealth>()?.TakeDamageWithPush(damage, pushDirection, pushForce);
+                Debug.Log($"Wolf attacked player! Damage: {damage}, Push: {pushForce}");
             }
         }
+        isAttacking = false;
     }
-
-    private void ResetAttack() => canAttack = true;
 
     public void StopAttack()
     {
-        CancelInvoke(nameof(ResetAttack));
-        canAttack = true;
+        CancelInvoke(nameof(PerformAttack));
+        isAttacking = false;
     }
 
     private void OnDrawGizmosSelected()
     {
-        if (!drawGizmos || attackPoint == null) return;
+        if (!showGizmos || attackPoint == null) return;
 
-        Gizmos.color = gizmoColor;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        Gizmos.DrawLine(attackPoint.position, attackPoint.position + transform.right * attackRange);
+
+        // Визуализация направления атаки
+        if (Application.isPlaying && IsPlayerInRange())
+        {
+            Gizmos.color = Color.yellow;
+            Vector2 playerPos = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer).transform.position;
+            Gizmos.DrawLine(attackPoint.position, playerPos);
+        }
     }
 }

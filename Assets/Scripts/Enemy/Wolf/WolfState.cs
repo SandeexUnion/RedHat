@@ -84,8 +84,7 @@ public class WolfState : MonoBehaviour
                 break;
 
             case State.Chase:
-                // Добавляем проверку прямой видимости
-                if (distanceToPlayer <= attackRange && vision.CanSeeTarget(player))
+                if (distanceToPlayer <= attackRange)
                 {
                     SwitchState(State.Attack);
                 }
@@ -94,8 +93,6 @@ public class WolfState : MonoBehaviour
                     SwitchState(State.Patrol);
                 }
                 break;
-
-            
         }
     }
 

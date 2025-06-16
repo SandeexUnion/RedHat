@@ -62,7 +62,7 @@ public class PlayerInput : MonoBehaviour
             ItemID itemId = GetItemId(usingZone.currentObject);
             if (inventory.AddItem(itemId, usingZone.currentObject))
             {
-                usingZone.currentObject.OnPickup();
+                usingZone.currentObject.Pickup();
                 usingZone.currentObject = null;
             }
         }
