@@ -7,29 +7,21 @@ public class BackgroundResizer : MonoBehaviour
 
     void Start()
     {
-        mainCamera = Camera.main;
-        backgroundRenderer = GetComponent<Renderer>();
-        ResizeBackground();
+        if (backgroundRenderer == null)
+            backgroundRenderer = GetComponent<Renderer>();
+
+        // Масштабируем текстуру под размер Plane
+        float textureAspect = (float)backgroundRenderer.material.mainTexture.width /
+                              backgroundRenderer.material.mainTexture.height;
+        float screenAspect = (float)Screen.width / Screen.height;
+
+        // Если текстура уже квадратная, можно пропустить
+        if (Mathf.Abs(textureAspect - screenAspect) > 0.01f)
+        {
+            backgroundRenderer.material.mainTextureScale =
+                new Vector2(screenAspect / textureAspect, 1f);
+        }
     }
 
-    void ResizeBackground()
-    {
-        // Получаем размер экрана в мировых координатах
-        float screenHeight = mainCamera.orthographicSize * 2f;
-        float screenWidth = screenHeight * mainCamera.aspect;
-
-        // Масштабируем Plane под размер экрана
-        transform.localScale = new Vector3(
-            screenWidth / 10f,  // Plane по умолчанию 10x10 единиц
-            1f,
-            screenHeight / 10f
-        );
-
-        // Позиционируем фон за камерой (но в пределах видимости)
-        transform.position = new Vector3(
-            mainCamera.transform.position.x,
-            mainCamera.transform.position.y,
-            transform.position.z // Сохраняем исходную Z-позицию
-        );
-    }
+    
 }
