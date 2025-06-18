@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 9117746938643585886}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.3, y: -0.55, z: 0.067516945}
+  m_LocalPosition: {x: 6.3, y: -0.55, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -270,6 +270,8 @@ MonoBehaviour:
   itemName: Apple
   icon: {fileID: -958622671127561806, guid: fbf56e0b9fe170c439697c1788ca2c3c, type: 3}
   maxStack: 6
+  respawnable: 1
+  customRespawnPoint: {fileID: 0}
   speedMultiplier: 1.3
   jumpMultiplier: 1.2
   damageMultiplier: 2

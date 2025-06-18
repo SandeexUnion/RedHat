@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1179209944227365685}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.149869, y: 0.016488388, z: 0.033252306}
+  m_LocalPosition: {x: -1.149869, y: 0.016488388, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,6 +51,8 @@ MonoBehaviour:
   itemName: Plantain
   icon: {fileID: 1164949898700614173, guid: 5a84c5ca1621a2e4c9335bf2835307b0, type: 3}
   maxStack: 6
+  respawnable: 1
+  customRespawnPoint: {fileID: 0}
   healAmount: 25
 --- !u!212 &2802189653788763072
 SpriteRenderer:

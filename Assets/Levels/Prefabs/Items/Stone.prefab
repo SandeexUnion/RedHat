@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 8038819581886381381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.13, y: -0.15281159, z: 0.07310578}
+  m_LocalPosition: {x: 4.13, y: -0.15281159, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -270,6 +270,8 @@ MonoBehaviour:
   itemName: Stone
   icon: {fileID: 1010597490007234899, guid: 41ba6f9e9e195ee4a94f22ec53b462b2, type: 3}
   maxStack: 1
+  respawnable: 1
+  customRespawnPoint: {fileID: 0}
   throwForce: 15
   stoneProjectilePrefab: {fileID: 3919388930322370911, guid: bd95f46bd5484804ca38fe57ff9fe932, type: 3}
   throwOffset: 0.5

@@ -10,7 +10,8 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI Settings")]
     [SerializeField] private Image healthBarFill; // Ссылка на Image компонент полоски здоровья
     [SerializeField] private bool isHealthBarRightToLeft = false; // Направление заполнения
-
+    [SerializeField] private PlayerAnimationController playerAnimationController;
+    [SerializeField, HideInInspector] private PlayerInput playerInput;
     [Header("Push Settings")]
     [SerializeField] private float pushRecoveryTime = 0.5f;
     [SerializeField] private float pushDeceleration = 15f;
@@ -26,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
+        playerAnimationController = GetComponentInChildren<PlayerAnimationController>();
         rb = GetComponent<Rigidbody2D>();
         InitializeHealthBar();
         UpdateHealthBar();
@@ -69,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void ApplyPush(Vector2 direction, float force)
     {
-        GetComponent<PlayerInput>().isPushed = true;
+        playerInput.isPushed = true;
         pushVelocity = direction.normalized * force;
         isPushed = true;
         pushEndTime = Time.time + pushRecoveryTime;
@@ -103,7 +106,7 @@ public class PlayerHealth : MonoBehaviour
             if (Time.time >= pushEndTime)
             {
                 isPushed = false;
-                GetComponent<PlayerInput>().isPushed = false;
+                playerInput.isPushed = false;
                 rb.linearVelocity = Vector2.zero;
             }
         }
@@ -115,9 +118,10 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-    private void Die()
+    public void Die()
     {
-        Debug.Log("Player died!");
+        playerAnimationController.Dead();
+        playerInput.enabled = false;
         // Дополнительная логика смерти
     }
 }

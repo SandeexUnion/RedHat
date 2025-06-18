@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4019266043931598091}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.23, y: -0.11445403, z: 0.05714373}
+  m_LocalPosition: {x: 2.23, y: -0.11445403, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -96,6 +96,8 @@ MonoBehaviour:
   itemName: Stick
   icon: {fileID: 5857475144674419265, guid: a396ef0543094fd40b8cfc4e3b581ba8, type: 3}
   maxStack: 20
+  respawnable: 1
+  customRespawnPoint: {fileID: 0}
   throwForce: 12
   stickProjectilePrefab: {fileID: 7041606817620698634, guid: 79777dccfa7bf86499ac582b87e5c1ef, type: 3}
   throwOffset: 0.5

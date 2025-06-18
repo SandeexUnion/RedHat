@@ -24,45 +24,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201734719217919404}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.915, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.91499996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 599317745489534284}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1823056712566708309
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 599317745489534284}
-  m_Layer: 7
-  m_Name: RedHat
-  m_TagString: Player
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &599317745489534284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823056712566708309}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3192673831552063639}
-  - {fileID: 4983165544557602490}
-  - {fileID: 5879374142594918891}
   m_Father: {fileID: 169386057172309546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2842345198472241991
@@ -101,7 +67,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 599317745489534284}
+  - {fileID: 3192673831552063639}
+  - {fileID: 4983165544557602490}
+  - {fileID: 5879374142594918891}
   - {fileID: 7619835316176432595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -192,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 10
+  deceleration: 5
   groundCheck: {fileID: 3192673831552063639}
   groundCheckDistance: 0.2
   groundLayer:
@@ -200,8 +169,10 @@ MonoBehaviour:
   drawDebugRays: 1
   inventory: {fileID: 7111166207140779999}
   usingZone: {fileID: 4693293508737967292}
+  inventoryUI: {fileID: 0}
   isFacingRight: 1
   isGrounded: 0
+  isPushed: 0
 --- !u!114 &7111166207140779999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +213,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
+  healthBarFill: {fileID: 0}
+  isHealthBarRightToLeft: 0
+  playerAnimationController: {fileID: 0}
+  playerInput: {fileID: 0}
   pushRecoveryTime: 0.5
+  pushDeceleration: 15
   hitParticles: {fileID: 0}
   hitSound: {fileID: 0}
 --- !u!114 &7693828182269889461
@@ -283,12 +259,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6220845385218223880}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 599317745489534284}
+  m_Father: {fileID: 169386057172309546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &6735275501627658986
 BoxCollider2D:
@@ -519,7 +495,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 599317745489534284}
+  m_Father: {fileID: 169386057172309546}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2295327201181079796
 SpriteRenderer:
@@ -614,9 +590,11 @@ MonoBehaviour:
   health: {fileID: 1520917006964949286}
   effects: {fileID: 7693828182269889461}
   playerInput: {fileID: 7913670012123549804}
+  blackout: {fileID: 0}
   speedParam: Speed
   isGroundedParam: IsGrounded
   verticalSpeedParam: VerticalSpeed
   healthStateParam: HealthState
   isBuffedParam: IsBuffed
+  isDeadParam: IsDead
   lowHPThreshold: 0.5

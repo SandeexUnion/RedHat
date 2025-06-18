@@ -7,6 +7,8 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private PlayerHealth health;
     [SerializeField] private PlayerEffects effects;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Blackout blackout;
+    private PauseMenu pauseMenu;
 
     [Header("Animation Parameters")]
     [SerializeField] private string speedParam = "Speed";
@@ -14,12 +16,14 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private string verticalSpeedParam = "VerticalSpeed";
     [SerializeField] private string healthStateParam = "HealthState";
     [SerializeField] private string isBuffedParam = "IsBuffed";
+    [SerializeField] private string isDeadParam = "IsDead";
 
     [Header("Settings")]
     [SerializeField] private float lowHPThreshold = 0.5f;
 
     private void Awake()
     {
+        pauseMenu = FindAnyObjectByType<PauseMenu>();
         // јвтоматическое получение компонентов, если не заданы в инспекторе
         if (!animator) animator = GetComponent<Animator>();
         if (!health) health = GetComponent<PlayerHealth>();
@@ -57,6 +61,10 @@ public class PlayerAnimationController : MonoBehaviour
         // 0 = FullHP, 1 = LowHP
         bool isLowHP = health.currentHealth < health.maxHealth * lowHPThreshold;
         animator.SetInteger(healthStateParam, isLowHP ? 1 : 0);
+        if (health.currentHealth <= 0)
+        {
+            Dead();
+        }
     }
 
     private void UpdateBuffedState()
@@ -64,9 +72,14 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetBool(isBuffedParam, effects.HasBuff);
     }
 
-    // Callback из анимации
-    public void OnAttackEnd()
+    
+    public void Dead()
     {
-        // ћожно добавить логику окончани€ атаки
+        animator.SetBool(isDeadParam, true);
+        blackout.StartBlackout(false);
+    }
+    private void RestartGame()
+    {
+        pauseMenu.QuitGame();
     }
 }
