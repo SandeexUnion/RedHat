@@ -24,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
     private Vector2 pushVelocity;
     private bool isPushed;
     private float pushEndTime;
+    private SoundManager soundManager;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         InitializeHealthBar();
         UpdateHealthBar();
+        soundManager = FindAnyObjectByType<SoundManager>();
     }
 
     public void TakeDamageWithPush(int damage, Vector2 pushDirection, float pushForce)
@@ -67,7 +69,14 @@ public class PlayerHealth : MonoBehaviour
         {
             float healthPercent = (float)currentHealth / maxHealth;
             healthBarFill.fillAmount = healthPercent;
+            if (healthPercent < 0.3f) // Порог низкого HP
+            {
+                soundManager.PlayHeartbeat();
+            }
         }
+        
+
+        
     }
 
     private void ApplyPush(Vector2 direction, float force)
@@ -122,6 +131,6 @@ public class PlayerHealth : MonoBehaviour
     {
         playerAnimationController.Dead();
         playerInput.enabled = false;
-        // Дополнительная логика смерти
+        
     }
 }

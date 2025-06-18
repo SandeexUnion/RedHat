@@ -9,12 +9,20 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private string mainMenuScene = "MainMenu";
 
     private bool isPaused = false;
+    private SoundManager soundManager;
+
+    private void Start()
+    {
+        soundManager = FindAnyObjectByType<SoundManager>();
+    }
 
     void Update()
     {
-        // Альтернативное управление через клавишу ESC
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // Проигрываем звук при открытии паузы
+            if (soundManager != null)
+                soundManager.PlayButtonClick();
             if (isPaused)
                 Resume();
             else
@@ -24,8 +32,12 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
+        // Проигрываем звук при открытии паузы
+        if (soundManager != null)
+            soundManager.PlayButtonClick();
         if (isPaused)
             Resume();
+
         else
             Pause();
     }
@@ -34,32 +46,45 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         pauseButton.SetActive(false);
-        Time.timeScale = 0f; // Останавливаем время в игре
+        Time.timeScale = 0f;
         isPaused = true;
-
-        // Дополнительно: отключаем звуки игры
         AudioListener.pause = true;
+
+        // Проигрываем звук при открытии паузы
+        if (soundManager != null)
+            soundManager.PlayButtonClick();
     }
 
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
         pauseButton.SetActive(true);
-        Time.timeScale = 1f; // Возобновляем время
+        Time.timeScale = 1f;
         isPaused = false;
-
-        // Включаем звуки обратно
         AudioListener.pause = false;
+
+        // Проигрываем звук при продолжении игры
+        if (soundManager != null)
+            soundManager.PlayButtonClick();
     }
 
     public void LoadMainMenu()
     {
-        Time.timeScale = 1f; // Важно сбросить timescale перед загрузкой сцены!
+        Time.timeScale = 1f;
+
+        // Проигрываем звук перед загрузкой меню
+        if (soundManager != null)
+            soundManager.PlayButtonClick();
+
         SceneManager.LoadScene(mainMenuScene);
     }
 
     public void QuitGame()
     {
+        // Проигрываем звук перед выходом
+        if (soundManager != null)
+            soundManager.PlayButtonClick();
+
         Application.Quit();
 
 #if UNITY_EDITOR

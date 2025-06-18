@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ParallaxController : MonoBehaviour
 {
-    [SerializeField] Transform cam; //Main Camera
+    [SerializeField] Transform cam; 
     [SerializeField] Vector3 camStartPos;
-    [SerializeField] float distance; //jarak antara start camera posisi dan current posisi
+    [SerializeField] float distance; 
 
     [SerializeField] GameObject[] backgrounds;
     [SerializeField] Material[] mat;
@@ -17,7 +17,7 @@ public class ParallaxController : MonoBehaviour
     [Range(0.01f, 0.05f)]
     public float parallaxSpeed;
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         cam = Camera.main.transform;
@@ -39,7 +39,7 @@ public class ParallaxController : MonoBehaviour
 
     void BackSpeedCalculate(int backCount)
     {
-        for (int i = 0; i < backCount; i++) //find the farthest background
+        for (int i = 0; i < backCount; i++) 
         {
             if ((backgrounds[i].transform.position.z - cam.position.z) > farthestBack)
             {
@@ -47,7 +47,7 @@ public class ParallaxController : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < backCount; i++) //set the speed of bacground
+        for (int i = 0; i < backCount; i++) 
         {
             backSpeed[i] = 1 - (backgrounds[i].transform.position.z - cam.position.z) / farthestBack;
         }

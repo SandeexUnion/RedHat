@@ -7,12 +7,13 @@ public class StoneProjectile : MonoBehaviour
     [SerializeField] private float lifeTime = 3f;
     [SerializeField] private float destroyDelayAfterHit = 0.1f;
     [SerializeField] private GameObject hitEffect;
-
+    private SoundManager soundManager;
     private Rigidbody2D rb;
     private bool hasHit = false;
 
     private void Awake()
     {
+        soundManager = FindAnyObjectByType<SoundManager>();
         rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime); // ��������������� ����� �����
     }
@@ -21,13 +22,7 @@ public class StoneProjectile : MonoBehaviour
     {
         if (hasHit) return;
 
-        // �� ��������� �� �������� � ������ ������
-        //if (collision.gameObject.tag ==("Player"))
-        //return;
-
-        //hasHit = true;
-
-        // ������� ���� ���� ��� ����
+       
         if (collision.gameObject.tag == ("Enemy"))
         {
 
@@ -42,16 +37,11 @@ public class StoneProjectile : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
+            soundManager.PlayHit();
             Destroy(gameObject);
         }
 
-        // ������� ������ ���������
-        //if (hitEffect != null)
-        {
-            //Instantiate(hitEffect, transform.position, Quaternion.identity);
-        }
-
-        // ��������� ������ � ������ ����� ������������
+        
         rb.linearVelocity = Vector2.zero;
         rb.isKinematic = true;
         GetComponent<Collider2D>().enabled = false;
@@ -63,13 +53,7 @@ public class StoneProjectile : MonoBehaviour
     {
         if (hasHit) return;
 
-        // �� ��������� �� �������� � ������ ������
-        //if (collision.gameObject.tag ==("Player"))
-            //return;
-
-        //hasHit = true;
-
-        // ������� ���� ���� ��� ����
+        
         if (collision.gameObject.tag ==("Enemy"))
         {
             var health = collision.gameObject.GetComponent<EnemyHealth>();
@@ -80,13 +64,7 @@ public class StoneProjectile : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // ������� ������ ���������
-        //if (hitEffect != null)
-        {
-            //Instantiate(hitEffect, transform.position, Quaternion.identity);
-        }
-
-        // ��������� ������ � ������ ����� ������������
+        
         rb.linearVelocity = Vector2.zero;
         rb.isKinematic = true;
         GetComponent<Collider2D>().enabled = false;
@@ -95,7 +73,7 @@ public class StoneProjectile : MonoBehaviour
         Destroy(gameObject, destroyDelayAfterHit);
     }
 
-    // ������������� ��� ������
+    
     public void Throw(Vector2 direction, float force)
     {
         rb.AddForce(direction * force, ForceMode2D.Impulse);

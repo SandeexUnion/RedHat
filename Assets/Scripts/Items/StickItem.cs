@@ -26,6 +26,7 @@ public class StickItem : InteractItem
             spawnPosition,
             Quaternion.identity
         );
+        Destroy(stick, 1f);  // <-- Добавь эту строку
 
         // Инициализируем снаряд
         StickProjectile projectile = stick.GetComponent<StickProjectile>();

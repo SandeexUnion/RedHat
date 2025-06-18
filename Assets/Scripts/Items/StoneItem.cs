@@ -25,6 +25,7 @@ public class StoneItem : InteractItem
             spawnPosition,
             Quaternion.identity
         );
+        Destroy(stone, 1f);  // <-- Добавь эту строку
 
         // Инициализируем снаряд
         StoneProjectile projectile = stone.GetComponent<StoneProjectile>();

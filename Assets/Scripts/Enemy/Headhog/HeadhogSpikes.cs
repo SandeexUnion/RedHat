@@ -9,7 +9,12 @@ public class HeadhogSpikes : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private float minVerticalPush = 0.3f;
     [SerializeField] private float horizontalPushMultiplier = 1.5f;
+    SoundManager soundManager;
 
+    private void Start()
+    {
+        soundManager = FindAnyObjectByType<SoundManager>();
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -31,6 +36,7 @@ public class HeadhogSpikes : MonoBehaviour
 
                 // Наносим урон с отталкиванием
                 playerHealth.TakeDamageWithPush(damage, pushDirection, pushForce);
+                soundManager.PlayHedgehogAttack();
                 SetAtackAnimation(true);
                 StartCoroutine(Attacking(0.1f));
 

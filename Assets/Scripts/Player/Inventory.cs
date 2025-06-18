@@ -90,6 +90,7 @@ public class Inventory : MonoBehaviour
         var newItem = Instantiate(slot.itemPrefab);
         newItem.Use(player);
         RemoveItem(itemId);
+        Destroy(newItem, 5f);
     }
 
     private InventorySlot GetSlot(ItemID itemId)

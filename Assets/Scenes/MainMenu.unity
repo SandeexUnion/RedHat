@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2911037072609142138, guid: a0f9451ed2713de418cdf2ee719de13c, type: 3}
+  m_Sprite: {fileID: -8833917605707988996, guid: 485e7598a9e812b4bb607ae32b2123f0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -446,8 +446,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 93, y: -65.29237}
-  m_SizeDelta: {x: 351.1565, y: -434.00848}
+  m_AnchoredPosition: {x: 92, y: -130.15405}
+  m_SizeDelta: {x: 351.1565, y: -947.3667}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1532925589
 MonoBehaviour:
@@ -658,8 +658,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 92, y: -122.7}
-  m_SizeDelta: {x: 351.1565, y: -434.00848}
+  m_AnchoredPosition: {x: 92, y: -293}
+  m_SizeDelta: {x: 351.1565, y: -958.5848}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1855055655
 MonoBehaviour:
@@ -847,6 +847,7 @@ GameObject:
   - component: {fileID: 1909899760}
   - component: {fileID: 1909899759}
   - component: {fileID: 1909899758}
+  - component: {fileID: 1909899763}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -951,6 +952,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1909899763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909899757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57bffb50f9639114aa5daa38a760b26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wolfAttackSound: {fileID: 0}
+  hedgehogAttackSound: {fileID: 0}
+  footstepsSound: {fileID: 0}
+  throwSound: {fileID: 0}
+  buttonClickSound: {fileID: 8300000, guid: 3be2fe7a893015d4a87690de9564a373, type: 3}
+  heartbeatSound: {fileID: 0}
+  hitSound: {fileID: 0}
+  backgroundMusic: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

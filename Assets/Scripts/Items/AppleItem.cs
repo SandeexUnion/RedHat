@@ -17,7 +17,7 @@ public class AppleItem : InteractItem
             effects.ApplyEffect(new DamageEffect(damageMultiplier, duration));
             
         }
-        // Не удаляем здесь предмет, это делает Inventory
+        
     }
     
 }

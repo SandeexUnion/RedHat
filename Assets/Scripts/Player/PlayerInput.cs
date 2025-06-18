@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     public Vector2 CurrentVelocity => rb.linearVelocity;
     private int currentItemSelected = -1; // Начинаем с -1 (ничего не выбрано)
     private Rigidbody2D rb;
+    private SoundManager soundManager;
     private float horizontalInput;
     public bool isFacingRight = true;
     public bool isGrounded;
@@ -27,6 +28,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        soundManager = FindAnyObjectByType<SoundManager>();
     }
 
     private void Update()
@@ -38,6 +40,16 @@ public class PlayerInput : MonoBehaviour
         // Остальной код без изменений...
         CheckGrounded();
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        Debug.LogError(horizontalInput);
+
+        if (Mathf.Abs(horizontalInput) > 0.1f && isGrounded)
+        {
+            soundManager.PlayFootsteps();
+        }
+        else
+        {
+            soundManager.StopFootsteps();
+        }
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             && isGrounded)
@@ -85,6 +97,7 @@ public class PlayerInput : MonoBehaviour
             if (inventory.HasItem(itemId))
             {
                 inventory.UseItem(itemId);
+                soundManager.PlayThrow();
             }
         }
     }

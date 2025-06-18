@@ -30,17 +30,18 @@ public class Blackout : MonoBehaviour
         if (isTeleporting && targetTransition != null)
         {
             targetTransition.Transfer();
+            // Осветление
+            timer = 0f;
+            while (timer < fadeDuration)
+            {
+                timer += Time.deltaTime;
+                darkImage.color = new Color(0, 0, 0, Mathf.Lerp(1, 0, timer / fadeDuration));
+                yield return null;
+            }
+
+            isFading = false;
         }
 
-        // Осветление
-        timer = 0f;
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            darkImage.color = new Color(0, 0, 0, Mathf.Lerp(1, 0, timer / fadeDuration));
-            yield return null;
-        }
-
-        isFading = false;
+        
     }
 }

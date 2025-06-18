@@ -80,6 +80,6 @@ public class PlayerAnimationController : MonoBehaviour
     }
     private void RestartGame()
     {
-        pauseMenu.QuitGame();
+        pauseMenu.LoadMainMenu();
     }
 }

@@ -10,13 +10,17 @@ public class WolfAttack : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float attackDelay = 0.3f;
     [SerializeField] private float pushForce = 5f; // Сила отталкивания
-
+    SoundManager soundManager;
     [Header("Debug")]
     [SerializeField] private bool showGizmos = true;
 
     private float lastAttackTime;
     private bool isAttacking;
 
+    private void Start()
+    {
+        soundManager = FindAnyObjectByType<SoundManager>();
+    }
     public bool CanAttack()
     {
         return Time.time >= lastAttackTime + attackCooldown;
@@ -43,6 +47,7 @@ public class WolfAttack : MonoBehaviour
             Collider2D player = Physics2D.OverlapCircle(attackPoint.position, attackRange, playerLayer);
             if (player != null)
             {
+                soundManager.PlayWolfAttack();
                 Vector2 pushDirection = (player.transform.position - transform.position).normalized;
                 player.GetComponent<PlayerHealth>()?.TakeDamageWithPush(damage, pushDirection, pushForce);
                 Debug.Log($"Wolf attacked player! Damage: {damage}, Push: {pushForce}");

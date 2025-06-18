@@ -8,11 +8,13 @@ public class StickProjectile : MonoBehaviour
     [SerializeField] private GameObject hitEffect;
 
     private int damage;
+    private SoundManager soundManager;
     private Rigidbody2D rb;
     private bool hasHit = false;
 
     private void Awake()
     {
+        soundManager = FindAnyObjectByType<SoundManager>();
         rb = GetComponent<Rigidbody2D>();
         Destroy(gameObject, lifeTime);
     }
@@ -51,6 +53,7 @@ public class StickProjectile : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
+            soundManager.PlayHit();
             Destroy(gameObject);
         }
 
