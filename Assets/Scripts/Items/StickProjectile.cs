@@ -7,7 +7,7 @@ public class StickProjectile : MonoBehaviour
     [SerializeField] private float destroyDelayAfterHit = 0.1f;
     [SerializeField] private GameObject hitEffect;
 
-    private int damage;
+    [SerializeField] private int damage;
     private SoundManager soundManager;
     private Rigidbody2D rb;
     private bool hasHit = false;

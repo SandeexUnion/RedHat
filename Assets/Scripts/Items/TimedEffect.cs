@@ -75,7 +75,7 @@ public class JumpEffect : TimedEffect
 public class DamageEffect : TimedEffect
 {
     private readonly float multiplier;
-    private PlayerCombat combat;
+    
 
     public DamageEffect(float multiplier, float duration)
     {
@@ -85,19 +85,12 @@ public class DamageEffect : TimedEffect
 
     public override void ApplyEffect(PlayerInput player)
     {
-        combat = player.GetComponent<PlayerCombat>();
-        if (combat != null)
-        {
-            combat.SetDamageMultiplier(multiplier);
-        }
+        
     }
 
     public override void RemoveEffect(PlayerInput player)
     {
-        if (combat != null)
-        {
-            combat.SetDamageMultiplier(1f);
-        }
+        
     }
 }
 

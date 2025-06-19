@@ -124,6 +124,7 @@ MonoBehaviour:
   lifeTime: 2
   destroyDelayAfterHit: 0.1
   hitEffect: {fileID: 0}
+  damage: 10
 --- !u!212 &2126682033642576164
 SpriteRenderer:
   m_ObjectHideFlags: 0
