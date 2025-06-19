@@ -131,6 +131,7 @@ public class PlayerHealth : MonoBehaviour
     {
         playerAnimationController.Dead();
         playerInput.enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
         
     }
 }

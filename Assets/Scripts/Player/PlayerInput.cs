@@ -40,7 +40,7 @@ public class PlayerInput : MonoBehaviour
         // Остальной код без изменений...
         CheckGrounded();
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        Debug.LogError(horizontalInput);
+        
 
         if (Mathf.Abs(horizontalInput) > 0.1f && isGrounded)
         {
