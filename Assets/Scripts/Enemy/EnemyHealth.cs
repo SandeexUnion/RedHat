@@ -6,7 +6,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private int currentHealth;
     [SerializeField] private WolfState state;
-
+    private EndGame endGame;
     [Header("Health Bar Settings")]
     [SerializeField] private Transform healthBarParent; // Родительский объект для полоски
     [SerializeField] private Transform healthBarFill;   // Красная заполняемая часть
@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
+        endGame = FindAnyObjectByType<EndGame>();
         currentHealth = maxHealth;
 
         if (healthBarFill != null)
@@ -65,6 +66,10 @@ public class EnemyHealth : MonoBehaviour
         if (healthBarParent != null)
         {
             Destroy(healthBarParent.gameObject);
+        }
+        if(gameObject.name == "WolfBoss")
+        {
+            endGame.ShowWinMessage();
         }
         state.Die();
     }

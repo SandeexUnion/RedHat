@@ -9,6 +9,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Blackout blackout;
     private PauseMenu pauseMenu;
+    private EndGame endgame;
 
     [Header("Animation Parameters")]
     [SerializeField] private string speedParam = "Speed";
@@ -23,6 +24,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Awake()
     {
+        endgame = FindAnyObjectByType<EndGame>();
         pauseMenu = FindAnyObjectByType<PauseMenu>();
         // Автоматическое получение компонентов, если не заданы в инспекторе
         if (!animator) animator = GetComponent<Animator>();
@@ -75,10 +77,11 @@ public class PlayerAnimationController : MonoBehaviour
     
     public void Dead()
     {
+        endgame.ShowLoseMessage();
         animator.SetBool(isDeadParam, true);
         blackout.StartBlackout(false);
     }
-    private void RestartGame()
+    public void RestartGame()
     {
         pauseMenu.LoadMainMenu();
     }
